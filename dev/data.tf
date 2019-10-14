@@ -9,3 +9,7 @@ data "template_file" "fib-workflow" {
   #   var-name = "${...}"
   # }
 }
+
+data "template_file" "admin" {
+  template = "${file("${path.module}/policies/admin.json")}"
+}
