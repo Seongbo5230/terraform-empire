@@ -14,9 +14,9 @@ resource "aws_db_instance" "fib-workflow" {
   engine_version          = "11.4"
   identifier              = "fib-workflow"
   instance_class          = "db.t2.micro"
-  username                = "postgres"
-  password                = "postgrespassword"
-  name                    = "fib"
+  username                = "${var.postgres-fib-workflow-username}"
+  password                = "${var.postgres-fib-workflow-password}"
+  name                    = "${var.postgres-fib-workflow-name}"
   port                    = 5432
   vpc_security_group_ids  = ["${aws_security_group.fib-workflow.id}"]
   skip_final_snapshot     = true
