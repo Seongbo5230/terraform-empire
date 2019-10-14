@@ -8,10 +8,9 @@ resource "aws_iam_user" "fib-workflow" {
 }
 
 resource "aws_iam_policy" "fib-workflow" {
-  name = "fib-workflow-policy"
-  path = "/"
-  # policy = "${data.template_file.fib-workflow.rendered}"
-  policy = "${data.template_file.admin.rendered}"
+  name   = "fib-workflow-policy"
+  path   = "/"
+  policy = "${data.template_file.fib-workflow.rendered}"
 }
 
 resource "aws_iam_role" "fib-workflow" {
@@ -46,5 +45,15 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "test-attach" {
   role       = "${aws_iam_role.fib-workflow.name}"
+  policy_arn = "${aws_iam_policy.fib-workflow.arn}"
+}
+
+resource "aws_iam_instance_profile" "fib-workflow" {
+  name = "fib-workflow"
+  role = "${aws_iam_role.fib-workflow.name}"
+}
+
+resource "aws_iam_user_policy_attachment" "fib-workflow" {
+  user       = "${aws_iam_user.fib-workflow.name}"
   policy_arn = "${aws_iam_policy.fib-workflow.arn}"
 }
